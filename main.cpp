@@ -1,12 +1,11 @@
 #include "raylib.h"
+#include "core/Config.h"
 
 int main()
 {
-    const int SCREEN_WIDTH = 1920;
-    const int SCREEN_HEIGHT = 1200;
-    const int TARGET_FPS = 60;
 
-    InitWindow(SCREEN_WIDTH,SCREEN_HEIGHT,"Slymania");
+
+    InitWindow(SCREEN_WIDTH,SCREEN_HEIGHT,GAME_NAME);
 
     SetTargetFPS(TARGET_FPS);
 

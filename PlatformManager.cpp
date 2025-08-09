@@ -7,7 +7,7 @@ PlatformManager::PlatformManager(float baseY) : basePlatformY(baseY) {
 }
 
 void PlatformManager::LoadResources() {
-    platformTexture = LoadTexture("asset/platform-1.png");
+    platformTexture = LoadTexture("platform-1.png");
 }
 
 

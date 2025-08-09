@@ -3,11 +3,13 @@
 #include <ctime>
 #include "raylib.h"
 
+//Initialize the game class
 Game::Game() : platformManager(screenH * 0.7f) {
     InitWindow(screenW, screenH, "Slymania");
     SetTargetFPS(60);
     std::srand((unsigned)time(nullptr));
 
+    //camera screen movement
     camera.offset = { screenW * 0.3f, screenH * 0.5f };
     camera.target = { 0, 0 };
     camera.rotation = 0.0f;
@@ -20,6 +22,7 @@ Game::Game() : platformManager(screenH * 0.7f) {
     }
 }
 
+//game run
 void Game::Run() {
     while (!WindowShouldClose()) {
         Update();
@@ -28,6 +31,7 @@ void Game::Run() {
     CloseWindow();
 }
 
+//update the game for anr key press, increase speed and all
 void Game::Update() {
     if (!gameOver) {
         float dt = GetFrameTime();
@@ -49,6 +53,7 @@ void Game::Update() {
         float generateUntilX = camera.target.x + screenW * 1.8f;
         platformManager.Generate(generateUntilX, dt);
 
+        //change camera screen 
         float camBottom = camera.target.y + (screenH - camera.offset.y);
         float camLeft = camera.target.x - camera.offset.x;
         if (player.pos.y - player.radius > camBottom + 40) Respawn(true);
@@ -56,10 +61,11 @@ void Game::Update() {
 
         camera.target.y = screenH * 0.5f;
     } else {
-        if (IsKeyPressed(KEY_R)) Reset();
+        if (IsKeyPressed(KEY_R)) Reset();  //restart
     }
 }
 
+//check if the slime lands on platform
 void Game::HandleCollisions(float dt) {
     player.onGround = false;
     Rectangle playerBB = player.GetBounds();
@@ -78,6 +84,7 @@ void Game::HandleCollisions(float dt) {
     }
 }
 
+//respwan teh slime 
 void Game::Respawn(bool loseLife) {
     if (loseLife) {
         lives--;
@@ -99,6 +106,7 @@ void Game::Respawn(bool loseLife) {
     }
 }
 
+//reset the entire game
 void Game::Reset() {
     platformManager.platforms.clear();
     platformManager.SeedInitial(-100.0f, 8);
@@ -112,6 +120,7 @@ void Game::Reset() {
     distanceTraveled = 0;
 }
 
+//draw or animate the game windows
 void Game::Draw() {
     BeginDrawing();
     ClearBackground(DARKGREEN);
@@ -127,8 +136,7 @@ void Game::Draw() {
     DrawRectangle(8, 8, 220, 76, Fade(BLACK, 0.35f));
     DrawRectangleLines(8, 8, 220, 76, BLUE);
     DrawText(TextFormat("Lives: %d", lives), 16, 16, 20, RED);
-    DrawText(TextFormat("Distance: %d m", (int)(distanceTraveled / 10.0f)), 16, 40, 16, DARKGRAY);
-    DrawText("Move: A/D or ←/→  Jump: Space/W/↑  Dash: Shift", 250, 16, 14, DARKGRAY);
+    DrawText(TextFormat("Distance: %d m", (int)(distanceTraveled / 10.0f)), 16, 40, 16, BLACK);
     if (gameOver) DrawText("GAME OVER - Press R to Restart", screenW / 2 - 180, screenH / 2 - 10, 20, RED);
 
     EndDrawing();

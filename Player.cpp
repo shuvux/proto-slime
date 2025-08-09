@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "raylib.h"
 
+//intialize the player class
 void Player::Init(const Vector2 &startPos) {
     pos = startPos;
     vel = {0, 0};
@@ -9,7 +10,7 @@ void Player::Init(const Vector2 &startPos) {
     state = IDLE;
     direction = RIGHT;
 
-
+    //player config
     moveSpeed = 200.0f;   
     elapsedTime = 0.0f;   
     speedIncreaseRate = 1.0f; 
@@ -19,6 +20,7 @@ void Player::Init(const Vector2 &startPos) {
     LoadTextures();
 }
 
+//update player info
 void Player::Update(float dt) {
 
     elapsedTime += dt;
@@ -27,13 +29,15 @@ void Player::Update(float dt) {
     if (moveSpeed > maxMoveSpeed) moveSpeed = maxMoveSpeed;
 
     
+    //check for movement, left or right
     float inputX = 0.0f;
     if (IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT)) inputX -= 1.0f;
     if (IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT)) inputX += 1.0f;
 
+    //check for dash movement
     bool dashHeld = IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_RIGHT_SHIFT);
 
-    float hVel = inputX * moveSpeed;
+    float hVel = inputX * moveSpeed; //horizontal velocity
     if (dashHeld && inputX != 0) hVel *= dashMultiplier;
 
     vel.x = hVel;
@@ -44,6 +48,7 @@ void Player::Update(float dt) {
     if (inputX == 0) state = IDLE;
     else state = MOVING;
 
+    //check if the jump key is pressed
     if ((IsKeyPressed(KEY_SPACE) || IsKeyPressed(KEY_W) || IsKeyPressed(KEY_UP)) && onGround) {
         isJumping = true;  
         jumpHoldTime = 0.0f;    
@@ -51,6 +56,7 @@ void Player::Update(float dt) {
         onGround = false;
     }
 
+    //check if the jump key is held 
     bool jumpHeld = IsKeyDown(KEY_SPACE) || IsKeyDown(KEY_W) || IsKeyDown(KEY_UP);
 
     if (isJumping && jumpHeld && jumpHoldTime < maxJumpHoldTime) {
@@ -73,6 +79,7 @@ Rectangle Player::GetBounds() const {
     return { pos.x - radius + 1, pos.y - radius, radius * 2 - 2, radius * 2 };
 }
 
+//check if slime land on platform
 void Player::LandOn(float platformY) {
     int texHeight = texIdleRight.height;
     pos.y = platformY - (texHeight / 2.0f);
@@ -101,7 +108,8 @@ void Player::Draw() const {
     }
 
     float scale = 0.55f;
-
+    //scale is used so that the space between platform and the slime is not see
+    //if scale is 1 or more, theres some visible space between slime and the platform
     Vector2 origin = { (currentTex.width) / 2.0f, (currentTex.height*scale) / 2.0f };
     DrawTexturePro(currentTex, 
                    Rectangle{0, 0, (float)currentTex.width, (float)currentTex.height}, 
@@ -110,6 +118,7 @@ void Player::Draw() const {
 }
 
 
+//load the images, feel free to change the movement to left and to right, but this works so i didnt touch this
 void Player::LoadTextures() {
     texIdleLeft = LoadTexture("src/assets/idle-left.png");
     texIdleRight = LoadTexture("src/assets/idle-right.png");
@@ -117,6 +126,7 @@ void Player::LoadTextures() {
     texMoveRight = LoadTexture("src/assets/idle-right.png");
 }
 
+//unload the same images
 void Player::UnloadTextures() {
     UnloadTexture(texIdleLeft);
     UnloadTexture(texIdleRight);

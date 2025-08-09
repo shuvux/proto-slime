@@ -16,6 +16,8 @@ enum PlayerDirection {
 
 
 class Player {
+
+//basic player config
 float elapsedTime = 0.0f; 
 float speedIncreaseRate = 1.0f; 
 float maxMoveSpeed = 999.0f;  
@@ -30,6 +32,7 @@ public:
     float radius{32.0f};
     bool onGround{false};
 
+    //player movement setting
     float moveSpeed{180.0f};
     float dashMultiplier{2.5f};
     float jumpImpulse{240.0f};
@@ -45,6 +48,7 @@ public:
     void StopHorizontalAt(float newX);
     void Draw() const;
 
+    //images load screen
     Texture2D texIdleLeft{};
     Texture2D texIdleRight{};
     Texture2D texMoveLeft{};
@@ -53,6 +57,7 @@ public:
     PlayerState state{IDLE};
     PlayerDirection direction{RIGHT};
 
+    //destructor called
     ~Player();
 
 

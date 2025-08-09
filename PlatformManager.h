@@ -8,6 +8,7 @@ class PlatformManager {
 public:
     std::vector<Platform> platforms;
 
+    //basic config of platform 
     float minPlatWidth{64.0f};
     float maxPlatWidth{160.0f};
     float minGap{32.0f};
@@ -20,6 +21,7 @@ public:
     PlatformManager(float baseY);
     ~PlatformManager();
 
+    //load the platform
     void LoadResources();
     void UnloadResources();
 

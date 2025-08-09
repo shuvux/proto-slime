@@ -11,7 +11,7 @@ void PlatformManager::LoadResources() {
 }
 
 
-
+//platform config
 void PlatformManager::SeedInitial(float startX, int count) {
     float x = startX;
     for (int i = 0; i < count; ++i) {
@@ -27,12 +27,14 @@ void PlatformManager::SeedInitial(float startX, int count) {
     }
 }
 
+//clean the unnecessary platforms to save memory
 void PlatformManager::Cleanup(float cleanupX) {
     while (!platforms.empty() && platforms.front().rect.x + platforms.front().rect.width < cleanupX) {
         platforms.erase(platforms.begin());
     }
 }
 
+//generation of platform
 void PlatformManager::Generate(float untilX, float dt) {
     elapsedTime += dt;
 
@@ -74,9 +76,7 @@ void PlatformManager::Generate(float untilX, float dt) {
 }
 
 
-// Before Draw()
-
-
+//draw the platform
 void PlatformManager::Draw() const {
     for (const auto &p : platforms) {
         Rectangle src = { 0, 0, (float)platformTexture.width, (float)platformTexture.height };
@@ -87,7 +87,6 @@ void PlatformManager::Draw() const {
         DrawRectangleLinesEx(p.rect, 2.0f, DARKBROWN);
     }
 }
-
 
 float PlatformManager::RandRange(float minVal, float maxVal) {
     return minVal + static_cast<float>(std::rand()) / (static_cast<float>(RAND_MAX/(maxVal - minVal)));

@@ -16,6 +16,14 @@ enum PlayerDirection {
 
 
 class Player {
+float elapsedTime = 0.0f;  // total time since game started or player initialized
+float speedIncreaseRate = 1.0f; // how much speed increases per second
+float maxMoveSpeed = 999.0f;    // max speed cap to avoid going too fast
+
+float jumpHoldTime = 0.0f;        // How long jump button is held
+const float maxJumpHoldTime = 0.25f;  // Max time jump can be held (seconds)
+bool isJumping = false;            // Track if jump is ongoing
+
 public:
     Vector2 pos{};
     Vector2 vel{};
@@ -24,7 +32,7 @@ public:
 
     float moveSpeed{180.0f};
     float dashMultiplier{2.5f};
-    float jumpImpulse{420.0f};
+    float jumpImpulse{240.0f};
     float gravity{1000.0f};
     float maxFallSpeed{800.0f};
 

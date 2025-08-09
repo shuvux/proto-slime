@@ -18,7 +18,7 @@ private:
     PlatformManager platformManager;
     int lives{5};
     bool gameOver{false};
-    float cameraSpeed{80.0f};
+    float cameraSpeed{100.0f};
     float distanceTraveled{0.0f};
     float elapsedTime{0.0f};
 

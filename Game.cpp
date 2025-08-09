@@ -34,8 +34,8 @@ void Game::Update() {
 
         elapsedTime+=dt;
 
-        cameraSpeed = 100.0f +elapsedTime*3.0f;
-        if (cameraSpeed > 300.0f)cameraSpeed = 300.0f;
+        cameraSpeed = 100.0f +elapsedTime*1.0f;
+        if (cameraSpeed > 999.0f)cameraSpeed = 999.0f;
 
         camera.target.x += cameraSpeed * dt;
         distanceTraveled += cameraSpeed * dt;
@@ -47,7 +47,7 @@ void Game::Update() {
         platformManager.Cleanup(cleanupX);
 
         float generateUntilX = camera.target.x + screenW * 1.8f;
-        platformManager.Generate(generateUntilX);
+        platformManager.Generate(generateUntilX, dt);
 
         float camBottom = camera.target.y + (screenH - camera.offset.y);
         float camLeft = camera.target.x - camera.offset.x;

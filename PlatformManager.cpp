@@ -7,7 +7,7 @@ PlatformManager::PlatformManager(float baseY) : basePlatformY(baseY) {
 }
 
 void PlatformManager::LoadResources() {
-    platformTexture = LoadTexture("platform-1.png");
+    platformTexture = LoadTexture("assets/platform-1.png");
 }
 
 
@@ -33,8 +33,11 @@ void PlatformManager::Cleanup(float cleanupX) {
     }
 }
 
-void PlatformManager::Generate(float untilX) {
+void PlatformManager::Generate(float untilX, float dt) {
+    elapsedTime += dt;
+
     if (platforms.empty()) {
+        // initial platform, same as before
         Platform p;
         p.rect.x = untilX - 200;
         p.rect.width = 200;
@@ -43,20 +46,25 @@ void PlatformManager::Generate(float untilX) {
         p.color = BLACK;
         platforms.push_back(p);
     }
+
     while (platforms.back().rect.x + platforms.back().rect.width < untilX) {
         Platform last = platforms.back();
-        float gap = RandRange(minGap, maxGap);
+
+        // Increase gap based on elapsedTime: e.g. start from minGap and increase linearly
+        float gapIncreaseSpeed = 1.0f;  // pixels per second increase, tweak as needed
+        float dynamicMinGap = minGap + elapsedTime * gapIncreaseSpeed;
+        float dynamicMaxGap = maxGap + elapsedTime * gapIncreaseSpeed;
+
+        float gap = RandRange(dynamicMinGap, dynamicMaxGap);
         float w = RandRange(minPlatWidth, maxPlatWidth);
+
         Platform p;
         p.rect.x = last.rect.x + last.rect.width + gap;
-        
-        const float maxVerticalGap = 256.0f; // or your preferred gap limit
-        
-        float verticalOffset = (std::rand() % ((int)(maxVerticalGap * 2 + 1))) - maxVerticalGap; // random between -maxVerticalGap and +maxVerticalGap
+
+        const float maxVerticalGap = 50.0f;
+        float verticalOffset = (std::rand() % ((int)(maxVerticalGap * 2 + 1))) - maxVerticalGap;
         float vy = last.rect.y + verticalOffset;
 
-        if (vy < 120) vy = 120;
-        if (vy > 540 - 100) vy = 540 - 100;
         p.rect.y = vy;
         p.rect.width = w;
         p.rect.height = 19;
@@ -64,6 +72,7 @@ void PlatformManager::Generate(float untilX) {
         platforms.push_back(p);
     }
 }
+
 
 // Before Draw()
 

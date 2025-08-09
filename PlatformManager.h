@@ -25,13 +25,14 @@ public:
 
     void SeedInitial(float startX, int count);
     void Cleanup(float cleanupX);
-    void Generate(float untilX);
+    void Generate(float untilX,float dt);
     void Draw() const; 
 
     
 
 private:
     float RandRange(float minVal, float maxVal);
+    float elapsedTime = 0.0f;
 };
 
 #endif // PLATFORM_MANAGER_H

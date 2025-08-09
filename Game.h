@@ -5,28 +5,29 @@
 #include "Player.h"
 #include "PlatformManager.h"
 
+// Main Game class: manages game loop, state, and objects
 class Game {
 public:
-    Game();
-    void Run();
+    Game();      // Constructor: initializes game
+    void Run();  // Runs the main game loop
 
 private:
-    const int screenW = 1920;
-    const int screenH = 1200;
-    Camera2D camera{};
-    Player player;
-    PlatformManager platformManager;
-    int lives{5};
-    bool gameOver{false};
-    float cameraSpeed{100.0f};
-    float distanceTraveled{0.0f};
-    float elapsedTime{0.0f};
+    const int screenW = 1920; // Window width
+    const int screenH = 1200; // Window height
+    Camera2D camera{};        // 2D camera for scrolling
+    Player player;            // Player object
+    PlatformManager platformManager; // Manages platforms
+    int lives{5};             // Player lives
+    bool gameOver{false};     // Game over flag
+    float cameraSpeed{100.0f}; // Camera horizontal speed
+    float distanceTraveled{0.0f}; // Total distance traveled
+    float elapsedTime{0.0f};      // Elapsed game time
 
-    void Update();
-    void HandleCollisions(float dt);
-    void Respawn(bool loseLife);
-    void Reset();
-    void Draw();
+    void Update();                    // Updates game logic
+    void HandleCollisions(float dt);  // Handles player/platform collisions
+    void Respawn(bool loseLife);      // Respawns player, optionally loses a life
+    void Reset();                     // Resets game state
+    void Draw();                      // Draws game scene and UI
 };
 
-#endif // GAME_H
+#endif

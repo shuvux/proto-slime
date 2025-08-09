@@ -1,65 +1,67 @@
-#ifndef PLAYER_H
+#ifndef PLAYER_H // Prevent multiple inclusions of this header file
 #define PLAYER_H
 
-#include "raylib.h"
+#include "raylib.h" // Include Raylib for Vector2, Texture2D, Rectangle
 
 
+// Enum for player state (idle or moving)
 enum PlayerState {
     IDLE,
     MOVING
 };
 
+// Enum for player facing direction
 enum PlayerDirection {
     LEFT,
     RIGHT
 };
 
-
+// Class representing the player character
 class Player {
 
-//basic player config
-float elapsedTime = 0.0f; 
-float speedIncreaseRate = 1.0f; 
-float maxMoveSpeed = 999.0f;  
+    // Basic player configuration and jump logic
+    float elapsedTime = 0.0f;           // Time since start, used for speed increase
+    float speedIncreaseRate = 1.0f;     // Rate at which speed increases
+    float maxMoveSpeed = 999.0f;        // Maximum allowed move speed
 
-float jumpHoldTime = 0.0f;  
-const float maxJumpHoldTime = 0.25f;  
-bool isJumping = false;        
+    float jumpHoldTime = 0.0f;          // Time jump key is held
+    const float maxJumpHoldTime = 0.25f;// Maximum jump hold duration
+    bool isJumping = false;             // Is the player currently jumping
 
 public:
-    Vector2 pos{};
-    Vector2 vel{};
-    float radius{32.0f};
-    bool onGround{false};
+    Vector2 pos{};                      // Player position
+    Vector2 vel{};                      // Player velocity
+    float radius{32.0f};                // Player collision radius
+    bool onGround{false};               // Is the player on the ground
 
-    //player movement setting
-    float moveSpeed{180.0f};
-    float dashMultiplier{2.5f};
-    float jumpImpulse{240.0f};
-    float gravity{1000.0f};
-    float maxFallSpeed{800.0f};
+    // Player movement settings
+    float moveSpeed{180.0f};            // Current move speed
+    float dashMultiplier{2.5f};         // Dash speed multiplier
+    float jumpImpulse{240.0f};          // Jump impulse strength
+    float gravity{1000.0f};             // Gravity applied to player
+    float maxFallSpeed{800.0f};         // Maximum fall speed
 
-    void Init(const Vector2 &startPos);
-    void LoadTextures();  
-    void UnloadTextures(); 
-    void Update(float dt);
-    Rectangle GetBounds() const;
-    void LandOn(float platformY);
-    void StopHorizontalAt(float newX);
-    void Draw() const;
+    // Player methods
+    void Init(const Vector2 &startPos); // Initialize player
+    void LoadTextures();                // Load player textures
+    void UnloadTextures();              // Unload player textures
+    void Update(float dt);              // Update player state
+    Rectangle GetBounds() const;        // Get player collision bounds
+    void LandOn(float platformY);       // Land on a platform
+    void StopHorizontalAt(float newX);  // Stop horizontal movement
+    void Draw() const;                  // Draw player
 
-    //images load screen
+    // Textures for different states and directions
     Texture2D texIdleLeft{};
     Texture2D texIdleRight{};
     Texture2D texMoveLeft{};
     Texture2D texMoveRight{};
 
-    PlayerState state{IDLE};
-    PlayerDirection direction{RIGHT};
+    PlayerState state{IDLE};            // Current player state
+    PlayerDirection direction{RIGHT};   // Current facing direction
 
-    //destructor called
+    // Destructor
     ~Player();
-
 
 };
 

@@ -10,10 +10,10 @@ void Player::Init(const Vector2 &startPos) {
     direction = RIGHT;
 
 
-    moveSpeed = 200.0f;       // Starting speed
-    elapsedTime = 0.0f;       // Reset timer
-    speedIncreaseRate = 1.0f; // Increase speed by 50 units per second (adjust as needed)
-    maxMoveSpeed = 999.0f;    // Maximum speed cap
+    moveSpeed = 200.0f;   
+    elapsedTime = 0.0f;   
+    speedIncreaseRate = 1.0f; 
+    maxMoveSpeed = 999.0f;    
 
 
     LoadTextures();
@@ -38,41 +38,33 @@ void Player::Update(float dt) {
 
     vel.x = hVel;
 
-    // Update player direction for sprite flip
     if (inputX < 0) direction = LEFT;
     else if (inputX > 0) direction = RIGHT;
 
-    // Update player state for sprite selection
     if (inputX == 0) state = IDLE;
     else state = MOVING;
 
-    // Start jump if pressed and on ground
-    // Start jump when jump key pressed AND player is on ground
     if ((IsKeyPressed(KEY_SPACE) || IsKeyPressed(KEY_W) || IsKeyPressed(KEY_UP)) && onGround) {
-        isJumping = true;       // start jump hold state
-        jumpHoldTime = 0.0f;    // reset hold timer
-        vel.y = -jumpImpulse;   // initial jump impulse
+        isJumping = true;  
+        jumpHoldTime = 0.0f;    
+        vel.y = -jumpImpulse;   
         onGround = false;
     }
 
-    // Check if jump key is currently held down
     bool jumpHeld = IsKeyDown(KEY_SPACE) || IsKeyDown(KEY_W) || IsKeyDown(KEY_UP);
 
-    // If jump is in progress and button is held and max hold time not reached
     if (isJumping && jumpHeld && jumpHoldTime < maxJumpHoldTime) {
-        // Sustain upward velocity to allow higher jump while holding
         vel.y = -jumpImpulse;
         jumpHoldTime += dt;
-    } else {
-        // Jump hold ended or button released or max hold reached
+
+    } 
+    else {
         isJumping = false;
     }
 
-    // Apply gravity normally
     vel.y += gravity * dt;
     if (vel.y > maxFallSpeed) vel.y = maxFallSpeed;
 
-    // Update position normally
     pos.x += vel.x * dt;
     pos.y += vel.y * dt;
 }
@@ -110,7 +102,6 @@ void Player::Draw() const {
 
     float scale = 0.55f;
 
-    // Draw texture centered on player position
     Vector2 origin = { (currentTex.width) / 2.0f, (currentTex.height*scale) / 2.0f };
     DrawTexturePro(currentTex, 
                    Rectangle{0, 0, (float)currentTex.width, (float)currentTex.height}, 

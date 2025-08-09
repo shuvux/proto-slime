@@ -16,13 +16,13 @@ enum PlayerDirection {
 
 
 class Player {
-float elapsedTime = 0.0f;  // total time since game started or player initialized
-float speedIncreaseRate = 1.0f; // how much speed increases per second
-float maxMoveSpeed = 999.0f;    // max speed cap to avoid going too fast
+float elapsedTime = 0.0f; 
+float speedIncreaseRate = 1.0f; 
+float maxMoveSpeed = 999.0f;  
 
-float jumpHoldTime = 0.0f;        // How long jump button is held
-const float maxJumpHoldTime = 0.25f;  // Max time jump can be held (seconds)
-bool isJumping = false;            // Track if jump is ongoing
+float jumpHoldTime = 0.0f;  
+const float maxJumpHoldTime = 0.25f;  
+bool isJumping = false;        
 
 public:
     Vector2 pos{};
@@ -37,8 +37,8 @@ public:
     float maxFallSpeed{800.0f};
 
     void Init(const Vector2 &startPos);
-    void LoadTextures();   // New function to load textures from assets folder
-    void UnloadTextures(); // Free textures when done
+    void LoadTextures();  
+    void UnloadTextures(); 
     void Update(float dt);
     Rectangle GetBounds() const;
     void LandOn(float platformY);

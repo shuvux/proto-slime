@@ -5,15 +5,13 @@ Till now the following features have been added
 - Dynamic speed (increase the speed of player, screen)
 - Dynamic Gap ( the gap between the platform increases with time)
 
-  To be added
-  - Load Platform Texture
-  - Implement Fluid Point System
-  - Implement Dash Pentaly
-  - Implement multiple platform generation in vertical axes
+- Load Platform Texture
+- Implement multiple platform generation in vertical axes
+- Implement High Score and Other UIs
+- Implement Dynamic Platform
+- Load Background Texture
 
-  - Implement Obstacles (vines)
-  - Implement Dynamic Platform
-  - Load Background Texture
- 
-  - Implement High Score and Other UIs
-  - Check for more features
+To be added in the future:
+- Implement Obstacles (vines)
+- Check for more features
+- Implement an fp system and a dash mechanic for the vines

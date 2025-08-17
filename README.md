@@ -25,7 +25,8 @@ Planned:
 - ## Requirements
 - C++17 or later
 - [raylib](https://www.raylib.com/)
+- Make sure raylib is installed and accessible from your compiler/linker.
 
-- ##**Code for creating the Executable**
+- ##**Build Code**
 - On Windows: g++ -std=c++17 -o Slymania.exe main.cpp Game.cpp Player.cpp PlatformManager.cpp \
     -I. -lraylib -lopengl32 -lgdi32 -lwinmm

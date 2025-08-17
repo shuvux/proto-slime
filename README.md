@@ -1,17 +1,31 @@
-Till now the following features have been added
-- Platform Generation (single)
-- loaded slime Texture
+# Slymania
+
+A simple 2D platformer made with **C++** and **raylib**.  
+The player controls a slime character that jumps across dynamically generated platforms.
+
+---
+
+## Features
+Implemented:
+- Platform generation (single + multiple vertical)
+- Slime texture loading
 - Dynamic jump (hold or press)
-- Dynamic speed (increase the speed of player, screen)
-- Dynamic Gap ( the gap between the platform increases with time)
+- Dynamic speed (player/screen)
+- Dynamic platform gap
+- Platform textures
+- High score and UI
+- Dynamic platforms
+- Background texture
 
-- Load Platform Texture
-- Implement multiple platform generation in vertical axes
-- Implement High Score and Other UIs
-- Implement Dynamic Platform
-- Load Background Texture
+Planned:
+- Obstacles (vines)
+- FP system
+- Dash mechanic
 
-To be added in the future:
-- Implement Obstacles (vines)
-- Check for more features
-- Implement an fp system and a dash mechanic for the vines
+- ## Requirements
+- C++17 or later
+- [raylib](https://www.raylib.com/)
+
+- ##**Code for creating the Executable**
+- On Windows: g++ -std=c++17 -o Slymania.exe main.cpp Game.cpp Player.cpp PlatformManager.cpp \
+    -I. -lraylib -lopengl32 -lgdi32 -lwinmm
